@@ -1,0 +1,23 @@
+const express = require('express');
+const sequelize = require('./config/database');
+const jokeRoutes = require('./routes/jokeRoutes');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./swagger');
+
+const app = express();
+
+app.use(express.json());
+
+// Routes de l'API
+app.use('/api/v1/jokes', jokeRoutes);
+
+// Documentation Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+// Synchronisation de la base de données
+sequelize.sync()
+  .then(() => console.log('Base de données synchronisée'))
+  .catch(err => console.error('Erreur de synchronisation:', err));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
