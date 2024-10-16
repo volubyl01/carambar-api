@@ -16,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/volubyl01/carambar-api/issues"
   },
-  "homepage": "https://github.com/volubyl01/carambar-api#readme"
+  "homepage": "https://github.com/volubyl01/carambar-api#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "sequelize": "^6.37.4",
+    "sqlite3": "^5.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
