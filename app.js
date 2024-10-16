@@ -4,6 +4,15 @@ const jokeRoutes = require('./routes/jokeRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
 
+
+const seedJokes = require('./seedJokes');
+seedJokes()
+  .catch(err => {
+    console.error('Erreur lors du seeding:', err);
+    process.exit(1); // Arrêtez le processus en cas d'erreur
+  });
+
+
 const app = express();
 
 app.use(express.json());

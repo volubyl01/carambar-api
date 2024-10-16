@@ -42,6 +42,20 @@ router.get('/', jokeController.getAllJokes);
 
 /**
  * @swagger
+ * /api/v1/jokes/random:
+ *   get:
+ *     summary: Récupère une blague aléatoire
+ *     tags: [Jokes]
+ *     responses:
+ *       200:
+ *         description: Blague aléatoire
+ *       404:
+ *         description: Aucune blague trouvée
+ */
+router.get('/random', jokeController.getRandomJoke);
+
+/**
+ * @swagger
  * /api/v1/jokes/{id}:
  *   get:
  *     summary: Récupère une blague par son ID
@@ -59,19 +73,5 @@ router.get('/', jokeController.getAllJokes);
  *         description: Blague non trouvée
  */
 router.get('/:id', jokeController.getJokeById);
-
-/**
- * @swagger
- * /api/v1/jokes/random:
- *  *   get:
- *     summary: Récupère une blague aléatoire
- *     tags: [Jokes]
- *     responses:
- *       200:
- *         description: Blague aléatoire
- *       404:
- *         description: Aucune blague trouvée
- */
-router.get('/random', jokeController.getRandomJoke);
 
 module.exports = router;
