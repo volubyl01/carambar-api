@@ -10,7 +10,8 @@ const cors = require('cors');
 const corsOptions = {
   origin: [
   'http://localhost:3000', 
-  'https://volubyl01.github.io', 
+  'https://volubyl01.github.io'
+  ], 
   optionsSuccessStatus: 200,
 };
 
