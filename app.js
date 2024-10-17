@@ -1,10 +1,9 @@
 const express = require('express');
-// on installe cors
-const cors = require('cors');
 const sequelize = require('./config/database');
 const jokeRoutes = require('./routes/jokeRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
+const cors = require('cors');
 
 
 // Configuration fr CORS pour autoriser les requêtes de l'application React
@@ -38,6 +37,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 sequelize.sync()
   .then(() => console.log('Base de données synchronisée'))
   .catch(err => console.error('Erreur de synchronisation:', err));
+
+// Middleware de gestion des erreurs
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Une erreur est survenue', error: err.message });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
