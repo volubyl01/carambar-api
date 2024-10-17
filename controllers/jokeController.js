@@ -37,17 +37,19 @@ exports.getJokeById = async (req, res) => {
 };
 
 exports.getRandomJoke = async (req, res) => {
-	try {
-		// la logique pour obtenir une blague aléatoire
-		const joke = await Joke.findOne({ order: sequelize.random() });
-		if (joke) {
-			// renvoie du json
-			res.setHeader('Content-Type', 'application/json');
-			res.json(joke);
-		} else {
-			res.status(404).json({ message: "Aucune blague trouvée" });
-		}
-	} catch (error) {
-		res.status(500).json({ error: error.message });
-	}
+    try {
+        const [joke] = await sequelize.query(
+            "SELECT * FROM Jokes ORDER BY RANDOM() LIMIT 1",
+            { type: QueryTypes.SELECT }
+        );
+
+        if (joke) {
+            res.json(joke);
+        } else {
+            res.status(404).json({ message: "Aucune blague trouvée" });
+        }
+    } catch (error) {
+        console.error('Erreur lors de la récupération d\'une blague aléatoire:', error);
+        res.status(500).json({ error: error.message });
+    }
 };
