@@ -1,4 +1,5 @@
 const Joke = require("../models/Joke");
+const { sequelize } = require("../config/database");
 
 exports.addJoke = async (req, res) => {
 	try {
