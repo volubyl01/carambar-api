@@ -39,6 +39,8 @@ exports.getRandomJoke = async (req, res) => {
 	try {
 		const joke = await Joke.findOne({ order: sequelize.random() });
 		if (joke) {
+			// renvoie du json
+			res.setHeader('Content-Type', 'application/json');
 			res.json(joke);
 		} else {
 			res.status(404).json({ message: "Aucune blague trouvée" });
