@@ -8,7 +8,10 @@ const cors = require('cors');
 
 // Configuration fr CORS pour autoriser les requêtes de l'application React
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://carambar-api-dhjw.onrender.com'], // Les URLs de l'application React
+  origin: [
+  'http://localhost:3000', 
+  'https://carambar-api-dhjw.onrender.com', 
+  'https://github.com/volubyl01/my-carambar-page'],
   optionsSuccessStatus: 200,
 };
 
