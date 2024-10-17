@@ -1,5 +1,6 @@
+const sequelize = require("../config/database");
 const Joke = require("../models/Joke");
-const { sequelize } = require("../config/database");
+const { QueryTypes } = require('sequelize');
 
 exports.addJoke = async (req, res) => {
 	try {
@@ -40,7 +41,7 @@ exports.getRandomJoke = async (req, res) => {
     try {
         const [joke] = await sequelize.query(
             "SELECT * FROM Jokes ORDER BY RANDOM() LIMIT 1",
-            { type: sequelize.QueryTypes.SELECT }
+            { type: QueryTypes.SELECT }
         );
 
         if (joke) {
