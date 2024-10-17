@@ -10,8 +10,7 @@ const cors = require('cors');
 const corsOptions = {
   origin: [
   'http://localhost:3000', 
-  'https://carambar-api-dhjw.onrender.com', 
-  'https://github.com/volubyl01/my-carambar-page'],
+  'https://volubyl01.github.io', 
   optionsSuccessStatus: 200,
 };
 
