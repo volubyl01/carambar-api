@@ -40,7 +40,7 @@ exports.getRandomJoke = async (req, res) => {
     try {
         const [joke] = await sequelize.query(
             "SELECT * FROM Jokes ORDER BY RANDOM() LIMIT 1",
-            { type: QueryTypes.SELECT }
+            { type: sequelize.QueryTypes.SELECT }
         );
 
         if (joke) {
