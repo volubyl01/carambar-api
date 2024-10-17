@@ -1,4 +1,4 @@
-const Joke = require("../models/Joke");
+const { sequelize } = require("../models/Joke");
 const { sequelize } = require("../config/database");
 
 exports.addJoke = async (req, res) => {
@@ -16,7 +16,7 @@ exports.addJoke = async (req, res) => {
 
 exports.getAllJokes = async (req, res) => {
 	try {
-		const jokes = await Joke.findAll();
+		const jokes = await jokes.findAll();
 		res.json(jokes);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -25,7 +25,7 @@ exports.getAllJokes = async (req, res) => {
 
 exports.getJokeById = async (req, res) => {
 	try {
-		const joke = await Joke.findByPk(req.params.id);
+		const joke = await joke.findByPk(req.params.id);
 		if (joke) {
 			res.json(joke);
 		} else {
@@ -38,7 +38,8 @@ exports.getJokeById = async (req, res) => {
 
 exports.getRandomJoke = async (req, res) => {
 	try {
-		const joke = await Joke.findOne({ order: sequelize.random() });
+		// la logique pour obtenir une blague aléatoire
+		const joke = await joke.findOne({ order: sequelize.random() });
 		if (joke) {
 			// renvoie du json
 			res.setHeader('Content-Type', 'application/json');
