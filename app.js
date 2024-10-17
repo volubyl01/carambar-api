@@ -1,17 +1,17 @@
 const express = require('express');
+// on installe cors
+const cors = require('cors');
 const sequelize = require('./config/database');
 const jokeRoutes = require('./routes/jokeRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
-// on installe cors
-const cors = require('cors');
+
 
 // Configuration fr CORS pour autoriser les requêtes de l'application React
 const corsOptions = {
   origin: [
   'http://localhost:3000', 
-  'https://volubyl01.github.io'
-  ], 
+  'https://volubyl01.github.io'],
   optionsSuccessStatus: 200,
 };
 
@@ -24,7 +24,8 @@ seedJokes()
 
 
 const app = express();
-
+// Ajoutez cette ligne pour utiliser le middleware CORS
+app.use(cors(corsOptions))
 app.use(express.json());
 
 // Routes de l'API
