@@ -3,7 +3,14 @@ const sequelize = require('./config/database');
 const jokeRoutes = require('./routes/jokeRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpecs = require('./swagger');
+// on installe cors
+const cors = require('cors');
 
+// Configuration fr CORS pour autoriser les requêtes de l'application React
+const corsOptions = {
+  origin: 'http://localhost:3000, '', // L'URL de l'application React
+  optionsSuccessStatus: 200
+};
 
 const seedJokes = require('./seedJokes');
 seedJokes()
