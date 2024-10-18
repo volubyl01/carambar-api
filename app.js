@@ -9,7 +9,7 @@ const app = express();
 
 // Configuration fr CORS pour autoriser les requêtes de l'application React
 const corsOptions = {
-	origin: ["http://localhost:3000", "http://localhost:3001","https://volubyl01.github.io/carambar-page"],
+	origin: ["http://localhost:3000", "http://localhost:3001","https://volubyl01.github.io"],
 	optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
