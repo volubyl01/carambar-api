@@ -10,10 +10,10 @@ const cors = require('cors');
 const corsOptions = {
   origin: [
   'http://localhost:3000', 
-  'https://volubyl01.github.io'],
+  'https://volubyl01.github.io/carambar-page'],
   optionsSuccessStatus: 200,
 };
-
+app.use(cors(corsOptions));
 const seedJokes = require('./seedJokes');
 seedJokes()
   .catch(err => {
