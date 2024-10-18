@@ -6,14 +6,14 @@ const swaggerSpecs = require("./swagger");
 const cors = require("cors");
 
 const app = express();
-app.use(express.json());
+
 // Configuration fr CORS pour autoriser les requêtes de l'application React
 const corsOptions = {
 	origin: ["http://localhost:3000", "http://localhost:3001","https://volubyl01.github.io"],
 	optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
+app.use(express.json());
 const seedJokes = require("./seedJokes");
 seedJokes().catch((err) => {
 	console.error("Erreur lors du seeding:", err);
