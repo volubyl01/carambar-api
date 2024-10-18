@@ -1,48 +1,48 @@
-const express = require('express');
-const sequelize = require('./config/database');
-const jokeRoutes = require('./routes/jokeRoutes');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpecs = require('./swagger');
-const cors = require('cors');
-
-
-// Configuration fr CORS pour autoriser les requêtes de l'application React
-const corsOptions = {
-  origin: [
-  'http://localhost:3000', 
-  'https://volubyl01.github.io/carambar-page'],
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-const seedJokes = require('./seedJokes');
-seedJokes()
-  .catch(err => {
-    console.error('Erreur lors du seeding:', err);
-    process.exit(1); // Arrêtez le processus en cas d'erreur
-  });
-
+const express = require("express");
+const sequelize = require("./config/database");
+const jokeRoutes = require("./routes/jokeRoutes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpecs = require("./swagger");
+const cors = require("cors");
 
 const app = express();
-// Ajoutez cette ligne pour utiliser le middleware CORS
-app.use(cors(corsOptions))
 app.use(express.json());
+// Configuration fr CORS pour autoriser les requêtes de l'application React
+const corsOptions = {
+	origin: ["http://localhost:3000", "http://localhost:3001","https://volubyl01.github.io/carambar-page"],
+	optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+const seedJokes = require("./seedJokes");
+seedJokes().catch((err) => {
+	console.error("Erreur lors du seeding:", err);
+	process.exit(1); // Arrêtez le processus en cas d'erreur
+});
 
 // Routes de l'API
-app.use('/api/v1/jokes', jokeRoutes);
+app.use("/api/v1/jokes", jokeRoutes);
 
 // Documentation Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Synchronisation de la base de données
-sequelize.sync()
-  .then(() => console.log('Base de données synchronisée'))
-  .catch(err => console.error('Erreur de synchronisation:', err));
+sequelize
+	.sync()
+	.then(() => console.log("Base de données synchronisée"))
+	.catch((err) => console.error("Erreur de synchronisation:", err));
 
 // Middleware de gestion des erreurs
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Une erreur est survenue', error: err.message });
+	console.error(err.stack);
+	res
+		.status(500)
+		.json({ message: "Une erreur est survenue", error: err.message });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+sequelize.sync().then(() => {
+	console.log("Base de données synchronisée");
+	const PORT = process.env.PORT || 3000;
+	app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+})
+.catch(err => console.error('Erreur de synchronisation:', err));
