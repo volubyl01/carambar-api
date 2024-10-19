@@ -17,14 +17,20 @@ const jokes = [
 
 async function seedJokes() {
   try {
-    await sequelize.sync({ force: true });
-    await Joke.bulkCreate(jokes);
-    console.log('Blagues insérées avec succès');
+    // Vérifiez si la table est vide avant d'insérer des données
+    const count = await Joke.count();
+    if (count === 0) {
+      await Joke.bulkCreate(jokes);
+      console.log('Blagues insérées avec succès');
+    } else {
+      console.log('La table des blagues n\'est pas vide, aucune insertion effectuée');
+    }
   } catch (error) {
     console.error('Erreur lors de l\'insertion des blagues:', error);
-    throw error; // Propagez l'erreur
+    throw error;
   }
 }
+
 
 module.exports = seedJokes; // Exportez la fonction
 
