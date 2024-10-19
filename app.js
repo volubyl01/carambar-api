@@ -28,12 +28,21 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Synchronisation de la base de données
 sequelize.sync()
-    .then(() => {
-        console.log("Base de données synchronisée");
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
-    })
-    .catch(err => console.error('Erreur de synchronisation:', err));
+  .then(async () => {
+    console.log("Base de données synchronisée");
+    
+    // Effectuez le seeding après la synchronisation
+    try {
+      await seedJokes();
+    } catch (err) {
+      console.error("Erreur lors du seeding:", err);
+    }
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+  })
+  .catch(err => console.error('Erreur de synchronisation:', err));
+
 
 // Middleware de gestion des erreurs
 app.use((err, req, res, next) => {
