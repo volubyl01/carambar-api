@@ -27,10 +27,13 @@ app.use("/api/v1/jokes", jokeRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // Synchronisation de la base de données
-sequelize
-	.sync()
-	.then(() => console.log("Base de données synchronisée"))
-	.catch((err) => console.error("Erreur de synchronisation:", err));
+sequelize.sync()
+    .then(() => {
+        console.log("Base de données synchronisée");
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
+    })
+    .catch(err => console.error('Erreur de synchronisation:', err));
 
 // Middleware de gestion des erreurs
 app.use((err, req, res, next) => {
@@ -40,9 +43,3 @@ app.use((err, req, res, next) => {
 		.json({ message: "Une erreur est survenue", error: err.message });
 });
 
-sequelize.sync().then(() => {
-	console.log("Base de données synchronisée");
-	const PORT = process.env.PORT || 3000;
-	app.listen(PORT, () => console.log(`Serveur démarré sur le port ${PORT}`));
-})
-.catch(err => console.error('Erreur de synchronisation:', err));
