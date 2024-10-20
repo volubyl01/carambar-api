@@ -14,21 +14,21 @@ const jokes = [
   { setup: "Quel est le comble pour un joueur de bowling ?", punchline: "C'est de perdre la boule" }
 ];
 
-
+//Méthode traditionnelle mais on choisit de synchroniser avec sequelize voir fichier Express
 async function seedJokes() {
-  try {
-    // Vérifiez si la table est vide avant d'insérer des données
-    const count = await Joke.count();
-    if (count === 0) {
-      await Joke.bulkCreate(jokes);
-      console.log('Blagues insérées avec succès');
-    } else {
-      console.log('La table des blagues n\'est pas vide, aucune insertion effectuée');
-    }
-  } catch (error) {
-    console.error('Erreur lors de l\'insertion des blagues:', error);
-    throw error;
-  }
+  // try {
+  //   // Vérifiez si la table est vide avant d'insérer des données
+  //   const count = await Joke.count();
+  //   if (count === 0) {
+  //     await Joke.bulkCreate(jokes);
+  //     console.log('Blagues insérées avec succès');
+  //   } else {
+  //     console.log('La table des blagues n\'est pas vide, aucune insertion effectuée');
+  //   }
+  // } catch (error) {
+  //   console.error('Erreur lors de l\'insertion des blagues:', error);
+  //   throw error;
+  // }
 }
 
 
