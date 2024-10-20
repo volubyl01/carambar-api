@@ -98,10 +98,55 @@ const jokeController = require('../controllers/jokeController');
  *           type: string
  *           description: La chute de la blague
  */
+/**
+ * @swagger
+ * /api/v1/jokes/{id}:
+ *   delete:
+ *     summary: Supprime une blague par son ID
+ *     tags: [Jokes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: L'ID de la blague à supprimer
+ *     responses:
+ *       200:
+ *         description: Blague supprimée avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Blague supprimée avec succès
+ *       404:
+ *         description: Blague non trouvée
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Blague non trouvée
+ *       500:
+ *         description: Erreur serveur
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 
 router.post('/', jokeController.addJoke);
 router.get('/', jokeController.getAllJokes);
 router.get('/random', jokeController.getRandomJoke);
 router.get('/:id', jokeController.getJokeById);
+router.delete('/:id', jokeController.deleteJoke);
 
 module.exports = router;
