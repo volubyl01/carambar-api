@@ -45,7 +45,13 @@ exports.getRandomJoke = async (req, res) => {
         );
 
         if (joke) {
-            res.json(joke);
+            // Formater les dates en ISO 8601
+            const formattedJoke = {
+                ...joke,
+                createdAt: joke.createdAt ? new Date(joke.createdAt).toISOString() : null,
+                updatedAt: joke.updatedAt ? new Date(joke.updatedAt).toISOString() : null
+            };
+            res.json(formattedJoke);
         } else {
             res.status(404).json({ message: "Aucune blague trouvée" });
         }
@@ -54,3 +60,4 @@ exports.getRandomJoke = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
